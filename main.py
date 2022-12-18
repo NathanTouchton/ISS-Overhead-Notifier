@@ -1,8 +1,11 @@
 from datetime import datetime, timezone
+from smtplib import SMTP
 from requests import get
 
 MY_LATITUDE = 42.43
 MY_LONGITUDE = -87.9
+
+EMAIL = "ntouchtongarbage@yahoo.com"
 
 # This section is to check if the ISS is overhead
 
@@ -44,11 +47,24 @@ sunrise = int(data["results"]["sunrise"].split("T")[1].split(":")[0])
 sunset = int(data["results"]["sunset"].split("T")[1].split(":")[0])
 
 time_now = datetime.now(timezone.utc)
+# print(IS_OVERHEAD)
 
 #If the ISS is close to my current position
 # and it is currently dark
 
-# continue here!!!
+if IS_OVERHEAD:
+    if time_now.hour < sunrise or time_now.hour > sunset:
+        with SMTP("smtp.mail.yahoo.com", port=587) as connection:
+            connection.starttls()
+            connection.login(
+                user=EMAIL,
+                password="insert password here",
+            )
+            connection.sendmail(
+                from_addr=EMAIL,
+                to_addrs="ntouchton@protonmail.com",
+                msg="Subject:Look up.\n\nLook up.",
+            )
 
 # Then send me an email to tell me to look up.
 # BONUS: run the code every 60 seconds.
