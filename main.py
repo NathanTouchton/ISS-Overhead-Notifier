@@ -5,7 +5,7 @@ from requests import get
 MY_LATITUDE = 42.43
 MY_LONGITUDE = -87.9
 
-EMAIL = "ntouchtongarbage@yahoo.com"
+EMAIL = "Your email here"
 
 # This section is to check if the ISS is overhead
 
@@ -62,7 +62,7 @@ if IS_OVERHEAD:
             )
             connection.sendmail(
                 from_addr=EMAIL,
-                to_addrs="ntouchton@protonmail.com",
+                to_addrs="Recipient email here.",
                 msg="Subject:Look up.\n\nLook up.",
             )
 
